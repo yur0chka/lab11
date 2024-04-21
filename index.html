@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Калькулятор з використанням AJAX</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#submit").click(function(event){
+        event.preventDefault();
+        var x_value = $("#x").val();
+        var y_value = $("#y").val();
+        var operation = $("input[name='operation']:checked").val();
+        $.ajax({
+            type: "GET",
+            url: "calculate.php",
+            data: { x: x_value, y: y_value, operation: operation },
+            success: function(result){
+                $("#result").html(result);
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+
+<form id="form1" name="form1">
+    <label>Значення x= <input type="text" name="x" id="x" /></label>
+    <p>
+    <label>Значення y= <input type="text" name="y" id="y" /></label>
+    </p>
+    <p>
+    <input type="radio" name="operation" value="add" checked> Додати
+    <input type="radio" name="operation" value="subtract"> Відняти
+    <input type="radio" name="operation" value="multiply"> Помножити
+    <input type="radio" name="operation" value="divide"> Поділити
+    </p>
+    <p><input name="submit" type="submit" id="submit" value="Calculate" /></p>
+</form>
+
+<div id="result"></div>
+
+</body>
+</html>
